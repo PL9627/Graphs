@@ -2,6 +2,7 @@
 Simple graph implementation
 """
 from util import Stack, Queue  # These may come in handy
+from collections import deque
 
 
 class Graph:
@@ -99,7 +100,26 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
+        visited = {starting_vertex: None}
+
+        queue = deque([starting_vertex])
+
+        while queue:
+            node = queue.popleft()
+
+            if node == destination_vertex:
+                path = []
+
+                while node is not None:
+                    path.append(node)
+                    node = visited[node]
+                return path[::-1]
+
+            for neighbor in self.vertices[node]:
+                if neighbor not in visited:
+                    visited[neighbor] = node
+                    queue.append(neighbor)
+
 
     def dfs(self, starting_vertex, destination_vertex):
         """
