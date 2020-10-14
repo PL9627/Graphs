@@ -155,7 +155,31 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        visited = set()
+
+        def dfs(path):
+            prev = path[-1]
+
+            if prev in visited:
+                return None
+            else:
+                visited.add(prev)
+
+            if prev == destination_vertex:
+                return path
+
+            for neighbor in self.get_neighbors(prev):
+                new_path = path[:]
+                new_path.append(neighbor)
+
+                new = dfs(new_path)
+
+                if new:
+                    return new
+
+            return None
+
+        return dfs([starting_vertex])
 
 
 if __name__ == '__main__':
