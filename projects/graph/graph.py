@@ -120,14 +120,32 @@ class Graph:
                     visited[neighbor] = node
                     queue.append(neighbor)
 
-
     def dfs(self, starting_vertex, destination_vertex):
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        pass  # TODO
+        stack = Stack()
+
+        stack.push([starting_vertex])
+
+        visited = set()
+
+        while stack.size() > 0:
+            current = stack.pop()
+            prev_vert = current[-1]
+
+            if prev_vert not in visited:
+                if prev_vert == destination_vertex:
+                    return current
+                else:
+                    visited.add(prev_vert)
+
+                    for neighbor in self.get_neighbors(prev_vert):
+                        current_copy = current[:]
+                        current_copy.append(neighbor)
+                        stack.push(current_copy)
 
     def dfs_recursive(self, starting_vertex, destination_vertex):
         """
