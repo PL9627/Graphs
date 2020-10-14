@@ -37,7 +37,19 @@ class Graph:
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        queue = []
+        queue.append(starting_vertex)
+
+        visited = set()
+
+        while len(queue) > 0:
+            curr_vert = queue.pop(0)
+
+            if curr_vert not in visited:
+                print(curr_vert)
+                visited.add(curr_vert)
+                for neighbor in self.get_neighbors(curr_vert):
+                    queue.append(neighbor)
 
     def dft(self, starting_vertex):
         """
