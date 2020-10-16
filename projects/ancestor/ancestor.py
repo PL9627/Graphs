@@ -3,6 +3,30 @@ from graph import Graph
 
 
 def earliest_ancestor(ancestors, starting_node):
+    queue = Queue()
+
+    path = [starting_node]
+
+    queue.enqueue(path)
+
+    while queue.size():
+        curr = queue.dequeue()
+        new = []
+        change = False
+
+        for node in curr:
+            for ancestor in ancestors:
+                if ancestor[1] == node:
+                    new.append(ancestor[0])
+                    change = True
+                    queue.enqueue(new)
+
+        if change is False:
+            if curr[0] == starting_node:
+                return -1
+            else:
+                return curr[0]
+
     """ graph = Graph()
 
     for ancestor in ancestors:
