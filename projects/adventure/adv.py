@@ -34,8 +34,7 @@ traversal_path = []
 reverse = {'n': 's', 's': 'n', 'e': 'w', 'w': 'e'}
 
 
-def map_trav(starting_room):
-    visited = set()
+def trav(starting_room, visited = set()):
     path = []
 
     for direc in player.current_room.get_exits():
@@ -43,6 +42,17 @@ def map_trav(starting_room):
 
         if player.current_room.id in visited:
             player.travel(reverse[direc])
+        else:
+            visited.add(player.current_room.id)
+            path.append(direc)
+            path = path + trav(player.current_room.id, visited)
+            player.travel(reverse[direc])
+            path.append(reverse[direc])
+
+    return path
+
+
+traversal_path = trav(player.current_room.id)
 
 
 # TRAVERSAL TEST
