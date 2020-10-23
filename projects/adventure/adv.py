@@ -5,6 +5,8 @@ from world import World
 import random
 from ast import literal_eval
 
+from util import Stack, Queue
+
 # Load world
 world = World()
 
@@ -17,7 +19,7 @@ world = World()
 map_file = "maps/main_maze.txt"
 
 # Loads the map into a dictionary
-room_graph=literal_eval(open(map_file, "r").read())
+room_graph = literal_eval(open(map_file, "r").read())
 world.load_graph(room_graph)
 
 # Print an ASCII map
@@ -31,11 +33,16 @@ traversal_path = []
 
 reverse = {'n': 's', 's': 'n', 'e': 'w', 'w': 'e'}
 
+
 def map_trav(starting_room):
     visited = set()
     path = []
-    pass
 
+    for direc in player.current_room.get_exits():
+        player.travel(direc)
+
+        if player.current_room.id in visited:
+            player.travel(reverse[direc])
 
 
 # TRAVERSAL TEST
@@ -48,11 +55,11 @@ for move in traversal_path:
     visited_rooms.add(player.current_room)
 
 if len(visited_rooms) == len(room_graph):
-    print(f"TESTS PASSED: {len(traversal_path)} moves, {len(visited_rooms)} rooms visited")
+    print(
+        f"TESTS PASSED: {len(traversal_path)} moves, {len(visited_rooms)} rooms visited")
 else:
     print("TESTS FAILED: INCOMPLETE TRAVERSAL")
     print(f"{len(room_graph) - len(visited_rooms)} unvisited rooms")
-
 
 
 #######
