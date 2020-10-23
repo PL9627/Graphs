@@ -29,6 +29,13 @@ player = Player(world.starting_room)
 # traversal_path = ['n', 'n']
 traversal_path = []
 
+reverse = {'n': 's', 's': 'n', 'e': 'w', 'w': 'e'}
+
+def map_trav(starting_room):
+    visited = set()
+    path = []
+    pass
+
 
 
 # TRAVERSAL TEST
